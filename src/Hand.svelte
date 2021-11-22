@@ -22,16 +22,14 @@
 <div on:mouseover={ mouseOver } 
      on:mouseout={ mouseOut }
      on:focus={ mouseOver }
-     on:blur={ mouseOut } >
-    <p>{ isHovering }</p>
-    <div class="section">
-        <div class="hand">
-            {#each cards as card, idx }
-                <div class="card-container">
-                    <Card {...card} />
-                </div>
-            {/each}
-        </div>
+     on:blur={ mouseOut }
+     class="section" >
+    <div class="hand">
+        {#each cards as card, idx }
+            <div class="card-container">
+                <Card {...card} />
+            </div>
+        {/each}
     </div>
 </div>
 

@@ -19,6 +19,7 @@
 </script>
 
 <main>
+	<Hand {cards} />
 	<div>
 		<Button label={"Stand"} isDestructive={true} />
 		<Button label={"Hit"} />
