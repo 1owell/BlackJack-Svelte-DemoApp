@@ -1,31 +1,37 @@
 <script>
 	import Hand from "./Hand.svelte";
 	import Button from "./Button.svelte";
+	import { fade } from "svelte/transition"
 	import { game } from "./Stores/GameStore";
+
+	$: title = $game.isActive ? $game.player.handValue : 'Blackjack';
+	$: { document.title = title }
 </script>
 
 <main>
+	<h3>Dealer</h3>
 	<Hand hand={ $game.dealer } />
-	<div>
+	<div class="controls">
 		<Button label="Deal Me" action={ async () => { game.startGame() } } />
-		<Button label="Stand" disabled={ !$game.playerTurn } action={ async () => { game.stand() } } />
-		<Button label="Hit" disabled={ !$game.playerTurn } action={ async () => { game.hit() } }/>
+		{#if $game.isActive}
+			<div transition:fade="{{duration: 200}}">
+				<Button label="Stand" disabled={ !$game.playerTurn } action={ async () => { game.stand() } } />
+				<Button label="Hit" disabled={ !$game.playerTurn } action={ async () => { game.hit() } }/>
+			</div>
+		{/if}
 	</div>
 	<Hand hand={ $game.player } />
 </main>
 
 <style>
+	.controls {
+		display: flex;
+		justify-content: center;
+	}
+
 	main {
 		text-align: center;
 		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
 		overflow: hidden;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
 	}
 </style>

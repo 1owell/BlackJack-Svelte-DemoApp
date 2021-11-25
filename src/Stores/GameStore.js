@@ -11,7 +11,7 @@ class Game {
         this.store = writable({
             dealer: new Hand(),
             player: new Hand(),
-            isOver: false,
+            isActive: false,
             playerTurn: true
         });
     }
@@ -26,7 +26,7 @@ class Game {
         this.store.set({
             dealer: new Hand(),
             player: new Hand(),
-            isOver: false,
+            isActive: true,
             playerTurn: true
         });
     }
@@ -110,7 +110,7 @@ class Game {
 
         if (message) alert(message);
         this.store.update(currentGameState => {
-            currentGameState.isOver = true
+            currentGameState.isActive   = false;
             currentGameState.playerTurn = false;
             return currentGameState;
         });

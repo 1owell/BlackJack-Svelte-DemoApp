@@ -14,6 +14,7 @@
 		border: unset;
 		border-radius: 6px;
 		padding: .75rem 1.5rem;
+		margin: 5px;
 		cursor: pointer;
 	}
 
