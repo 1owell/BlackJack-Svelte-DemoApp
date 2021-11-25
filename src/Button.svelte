@@ -1,19 +1,16 @@
 <script>
+	export let disabled = false;
     export let label;
-    export let isDestructive = false;
-
-    let defaults = { normal: '#d4b0b6', hover: '#ff8097', active: '#b32e47' }
-    let reds = { normal: '#d4b0b6', hover: '#ff8097', active: '#b32e47' } 
-    let colors = isDestructive ? reds : defaults;
+	export let action = () => { alert("Working") };	
 </script>
 
-<button style="--c: { colors.normal }; --ch: { colors.hover }; --ca: { colors.active }">
+<button on:click={ action() } disabled={ disabled } class:disabled >
     { label }
 </button>
 
 <style>
     button {
-		background: var(--c);
+		background: #e3e3e3;
 		border: unset;
 		border-radius: 6px;
 		padding: .75rem 1.5rem;
@@ -21,10 +18,16 @@
 	}
 
 	button:hover {
-		background: var(--ch);
+		background: #adadad;
 	}
     
 	button:active {
-		background: var(--ca);
+		background: #6e6e6e;
+		color: white;
+	}
+
+	.disabled, .disabled:hover, .disabled:active {
+		background: #e3e3e3;
+		cursor: not-allowed;
 	}
 </style>

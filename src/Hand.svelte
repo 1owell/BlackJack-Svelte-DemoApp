@@ -1,52 +1,32 @@
 <script>
-    import { fly } from 'svelte/transition';
     import Card from "./Card.svelte";
+    import { fly } from 'svelte/transition';
 
-    export let cards;
-
-    let isHovering = false;
-
-    function mouseOver() { 
-        isHovering = true
-    }
-    function mouseOut() { isHovering = false }
-
-    function getX(index) {
-        if (isHovering) {
-            return (index + 1) * 100;
-        }
-        return (index + 1) * 50;
-    }
+    export let hand;
 </script>
 
-<div on:mouseover={ mouseOver } 
-     on:mouseout={ mouseOut }
-     on:focus={ mouseOver }
-     on:blur={ mouseOut }
-     class="section" >
+<div class="section" >
     <div class="hand">
-        {#each cards as card, idx }
-            <div class="card-container">
-                <Card {...card} />
+        {#each hand.cards as card }
+            <div class="card-container" in:fly={{duration: 1000, y: -1000, x: 1000 }}>
+                <Card { card } />
             </div>
+        {:else}
+            <p>No Cards</p>
         {/each}
     </div>
 </div>
 
 <style>
     .section {
+        height: 25rem;
         display: flex;
         justify-content: center;
     }
 
     .hand {
         display: flex;
-        justify-content: center;
-        max-width: 300px;
-    }
-    
-    .hand:hover {
-        max-width: 100%;
+        justify-content: left;
     }
 
     .card-container {

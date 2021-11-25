@@ -1,30 +1,17 @@
 <script>
 	import Hand from "./Hand.svelte";
 	import Button from "./Button.svelte";
-
-	const card = {
-		imageURL: 'https://deckofcardsapi.com/static/img/QS.png',
-		value: '8',
-		suit: 'HEART'
-	}
-
-	const card2 = {
-		imageURL: 'https://deckofcardsapi.com/static/img/AH.png',
-		value: '8',
-		suit: 'HEART'
-	}
-
-	let cards = [card, card2];
-
+	import { game } from "./Stores/GameStore";
 </script>
 
 <main>
-	<Hand {cards} />
+	<Hand hand={ $game.dealer } />
 	<div>
-		<Button label={"Stand"} isDestructive={true} />
-		<Button label={"Hit"} />
+		<Button label="Deal Me" action={ async () => { game.startGame() } } />
+		<Button label="Stand" disabled={ !$game.playerTurn } action={ async () => { game.stand() } } />
+		<Button label="Hit" disabled={ !$game.playerTurn } action={ async () => { game.hit() } }/>
 	</div>
-	<Hand {cards} />
+	<Hand hand={ $game.player } />
 </main>
 
 <style>

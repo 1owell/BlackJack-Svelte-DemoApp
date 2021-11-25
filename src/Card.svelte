@@ -1,13 +1,11 @@
 <script>
-    export let imageURL;
-    export let value;
-    export let suit;
+    export let card
 
-    $: src = imageURL === '' ? "card_back.jpg" : imageURL;
+    $: src = card.faceDown ? "card_back.jpg" : card.imageURL;
 </script>
 
 <div>
-    <img src={ src } alt="{ value } of { suit }" draggable="false" width="226" height="314"> 
+    <img src={ src } alt="{ card.value } of { card.suit }" draggable="false" width="226" height="314"> 
 </div>
 
 <style>
@@ -21,5 +19,6 @@
     img {
         outline: 8px solid white; 
         outline-offset: -5px;
+        border-radius: 35px;
     }
 </style>
