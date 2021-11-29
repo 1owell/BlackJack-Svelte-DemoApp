@@ -9,7 +9,7 @@
 
 <div class="hand" >    
     {#each hand.cards as card (card) }
-        <div animate:flip={{duration: 1000, easing: circOut }} class="card"  in:fly={{duration: 600, y: -1000, x: 1000 }} >
+        <div animate:flip={{duration: 1000, easing: circOut }} class="card" in:fly={{duration: 600, y: -1000, x: 1000 }} >
             <Card { card } />
         </div>
     {:else}
