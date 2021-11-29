@@ -156,7 +156,10 @@ class Game {
 
     // Performs the network call to the given URL, and returns a promise that eventually resolves and parses the JSON.
     async cardFetch(url) {
-        return fetch(url).then(res => res.json());
+        return fetch(url).then(res => res.json()).then(res => {
+            if (res.success == false) throw new Error(res.error);
+            return res;
+        });
     }
 
 
@@ -166,15 +169,19 @@ class Game {
         const currentDeck = localStorage.getItem(deckIDKey);
         
         if (currentDeck) {
-            return this.cardFetch(`${ Game.apiBase }/deck/${ currentDeck }/shuffle`)
-                        .then(deck => deck.deck_id);
-        } else {
-            return this.cardFetch(`${ Game.apiBase }/deck/new/shuffle/?deck_count=${ deckAmount }`)
+            try {
+                return await this.cardFetch(`${ Game.apiBase }/deck/${ currentDeck }/shuffle`).then(deck => deck.deck_id);
+            } catch(err) {
+                // deck id is invalid
+                localStorage.removeItem(deckIDKey);
+            }
+        }
+        
+        return await this.cardFetch(`${ Game.apiBase }/deck/new/shuffle/?deck_count=${ deckAmount }`)
                         .then(deck => {
                             localStorage.setItem(deckIDKey, deck.deck_id);
                             return deck.deck_id;
                         });
-        }   
     }
 
     // Draws a card or cards from the deck and returns a Card object
