@@ -3,13 +3,34 @@
     import { fly } from "svelte/transition";
     import { circOut } from "svelte/easing";
     import { flip } from "svelte/animate";
+	import { crossfade } from "svelte/transition";
+
+	const [send, receive] = crossfade({
+		duration: 600,
+		fallback(node) {
+			const style = getComputedStyle(node);
+			const transform = style.transform === 'none' ? '' : style.transform;
+
+			return {
+				duration: 600,
+				easing: circOut,
+				css: t => `
+					transform: ${transform} scale(${t});
+					opacity: ${t};
+				`
+			};
+		}
+	});
 
     export let hand;
 </script>
 
 <div class="hand">
     {#each hand.cards as card (card) }
-        <div animate:flip={{duration: 600, easing: circOut }} class="card" in:fly={{duration: 600, y: -1000, x: 1000 }} >
+        <div animate:flip="{{duration: 600, easing: circOut }}" 
+             in:fly={{duration: 600, y: -1000, x: 1000 }} 
+             out:send="{{key: card}}" 
+             class="card" >
             <Card { card } />
         </div>
     {:else}

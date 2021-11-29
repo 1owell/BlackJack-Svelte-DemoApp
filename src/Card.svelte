@@ -5,7 +5,8 @@
 </script>
 
 <div>
-    <img src={ src } class="{ card.faceDown ? 'face-down' : 'face-up' }" alt="{ card.value } of { card.suit }" draggable="false"> 
+    <img src={ src } class="{ card.faceDown ? 'face-down' : 'face-up' }" 
+         alt="{ card.value } of { card.suit }" draggable="false"> 
 </div>
 
 <style>

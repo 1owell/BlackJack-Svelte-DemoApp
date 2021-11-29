@@ -5,30 +5,39 @@ import { writable, get } from "svelte/store";
 class Game {
 
     static apiBase = 'https://deckofcardsapi.com/api';
-    
+
     constructor() {
         this.deck  = '';
         this.store = writable({
             dealer: new Hand(),
             player: new Hand(),
             isActive: false,
-            playerTurn: true
+            playerTurn: true,
+            cardsToBeDealt: []
         });
     }
-
 
     get isPlayerTurn() {
         return get(this.store).playerTurn
     }
-
 
     reset() {
         this.store.set({
             dealer: new Hand(),
             player: new Hand(),
             isActive: true,
-            playerTurn: true
+            playerTurn: true,
+            cardsToBeDealt: []
         });
+    }
+
+
+    drawCards(amount) {
+        const cards = await this.fetchCards(amount);
+        update(currentGameState => {
+            currentGameState.cardsToBeDealt = cards;
+            return currentGameState;
+        })
     }
 
 
@@ -48,6 +57,7 @@ class Game {
 
     async start() {
         this.reset();
+
         // get new deck or shuffle existing deck
         this.deck   = await this.prepareCards();
         const cards = await this.fetchCards(4);
@@ -91,10 +101,10 @@ class Game {
 
         if (dealerHand > playerHand && dealerHand <= 21) {
             // dealer wins
-            this.endRound("You lost this round.")
+            this.endRound("You lost this round.");
         } else if ((dealerHand == playerHand) && (dealerHand <= 21)) {
             // tie
-            this.endRound("You tied with the dealer.")
+            this.endRound("You tied with the dealer.");
         } else if (((dealerHand < playerHand) || (dealerHand > 21)) && (playerHand <= 21)) {
             // player wins
             this.endRound("You win!");
@@ -119,7 +129,7 @@ class Game {
 
     blackJack(dealer, player) {
         if (dealer && player) {
-            this.endRound("You matched the dealer's blackjack! Tie.")
+            this.endRound("You matched the dealer's blackjack! Tie.");
         } else if (player) {
             this.endRound("Blackjack! You win!");
         } else {
@@ -187,14 +197,7 @@ class Game {
     // Draws a card or cards from the deck and returns a Card object
     async fetchCards(amount) {
         return this.cardFetch(`${ Game.apiBase }/deck/${ this.deck }/draw/?count=${ amount }`)
-                    .then(res => {
-                        const cards = res.cards.map(card => new Card(card.code, card.value, card.suit, card.image));
-                        if (amount === 1) {
-                            return cards[0];
-                        } else {
-                            return cards;
-                        }
-                    }); 
+                    .then(res => res.cards.map(card => new Card(card.code, card.value, card.suit, card.image))); 
     }
 }
 
