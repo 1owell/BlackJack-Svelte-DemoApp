@@ -17,6 +17,7 @@
 
     .face-down {
         padding: 8px;
+        max-height: 298px;
     }
 
     .face-up {
@@ -32,7 +33,6 @@
 
     @media (orientation: landscape) {
         img {
-            min-height: 36vh;
             border-radius: 2vh;
         }
 
@@ -42,9 +42,13 @@
     }
 
     @media (orientation: portrait) {
+        .face-down {
+            max-height: 240px;
+        }
+
         img {
-            height: 50vw;
             border-radius: 2vw;
+            max-height: 256px;
         }
 
         div {
