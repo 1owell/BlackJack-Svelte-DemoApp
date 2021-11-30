@@ -8,14 +8,7 @@ export class Card {
     }
 
     get baseNumericalValue() {
-        if (parseInt(this.value)) {
-            return parseInt(this.value);
-        } else if (this.isAce) {
-            return 1;
-        } else {
-            // face card
-            return 10;
-        }
+        // TODO
     }
 
     get isAce() {

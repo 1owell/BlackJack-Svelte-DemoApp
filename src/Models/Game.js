@@ -16,19 +16,19 @@ class Game {
 
 
     constructor() {
-        this.store = writable(Game.newGame());
+        // TODO
     }
 
 
     // Returns whether or not it is currently the player's turn
     get isPlayerTurn() {
-        return get(this.store).playerTurn;
+        // TODO
     }
 
 
     // Resets the game state
     reset() {
-        this.store.set(Game.newGame());
+        // TODO
     }
 
 
@@ -45,6 +45,29 @@ class Game {
         if (this.isPlayerTurn) {
             this.startDealerPlay();
         }
+    }
+
+
+    // Starts a round of Blackjack
+    async start() {
+        // Reset the game to its initial state
+
+
+        // get new deck or shuffle existing deck
+
+
+        // deal out initial cards
+    
+
+        // evaluate for blackjack hands
+
+    }
+
+
+    // Starts the dealer's play cycle
+    async startDealerPlay() {
+        // flip card over
+
     }
 
 
@@ -101,51 +124,6 @@ class Game {
     } 
 
 
-    // Starts a round of Blackjack
-    async start() {
-        this.reset();
-
-        // get new deck or shuffle existing deck
-        this.deck = await prepareCards();
-
-        // deal out initial cards
-        await this.drawCards(4);
-
-        // evaluate for blackjack hands
-        const currentGameState = get(this.store);
-        const playerHas21 = currentGameState.player.isBlackjack;
-        const dealerHas21 = currentGameState.dealer.isBlackjack;
-
-        if (playerHas21 || dealerHas21) {
-            this.blackJack(dealerHas21, playerHas21);
-        } else {
-            // player's turn
-            this.store.update(currentGameState => {
-                currentGameState.playerTurn = true;
-                currentGameState.isActive   = true;
-                return currentGameState;
-            });
-        }
-    }
-
-
-    // Starts the dealer's play cycle
-    async startDealerPlay() {
-        // flip card over
-        this.store.update(currentGameState => {
-            currentGameState.dealer.cards[1].flip();
-            currentGameState.playerTurn = false;
-            return currentGameState;
-        });
-
-        while(get(this.store).dealer.handValue < 17) {
-            await this.drawCards(1);
-        }
-
-        this.compareHands();
-    }
-
-
     compareHands() {
         const gameState  = get(this.store);
         const dealerHand = gameState.dealer.handValue;
@@ -193,19 +171,7 @@ class Game {
 function createGame() {
     
     // Create the store
-    const game = new Game();
-    const { subscribe } = game.store
 
-    const startGame = () => game.start();
-    const hit       = () => game.hit();
-    const stand     = () => game.stand();
-
-    return {
-        subscribe,
-        startGame,
-        hit,
-        stand
-    }
 }
 
 export const game = createGame();

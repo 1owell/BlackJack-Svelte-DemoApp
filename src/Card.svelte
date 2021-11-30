@@ -1,13 +1,4 @@
-<script>
-    export let card
 
-    $: src = card.faceDown ? "card_back.jpg" : card.imageURL;
-</script>
-
-<div>
-    <img src={ src } class="{ card.faceDown ? 'face-down' : 'face-up' }" 
-         alt="{ card.value } of { card.suit }" draggable="false"> 
-</div>
 
 <style>
     div {

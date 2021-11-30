@@ -5,8 +5,7 @@ export class Hand {
 
     // Add a new card to the hand
     addCard(card) {
-        this.cards.push(card);
-        return this;
+        // TODO
     }
 
     // Checks if the hand is a Blackjack
@@ -23,20 +22,6 @@ export class Hand {
 
     // Get the hand's current value
     get handValue() {
-        
-        let handValue = 0;
-        let aceCount  = 0;
-
-        for (const card of this.cards) {
-            card.isAce ? aceCount++ : handValue += card.baseNumericalValue;
-        }
-            
-        while(aceCount > 0) {
-            aceCount--;
-            handValue += 11;
-            if ((handValue > 21) || (handValue + aceCount > 21)) handValue -= 10;
-        }
-
-        return handValue;
+        // TODO
     }
 }

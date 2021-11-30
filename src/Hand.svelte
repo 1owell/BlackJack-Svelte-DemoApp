@@ -3,22 +3,9 @@
     import { fly } from "svelte/transition";
     import { circOut } from "svelte/easing";
     import { flip } from "svelte/animate";
-
-    export let hand;
 </script>
 
-<div class="hand">
-    {#each hand.cards as card (card) }
-        <div animate:flip="{{duration: 600, easing: circOut }}" 
-             in:fly={{duration: 600, y: -2000, x: 1500 }} 
-             out:fly="{{duration: 2000, y: -2000, x: -1500 }}"
-             class="card">
-            <Card { card } />
-        </div>
-    {:else}
-        <p>No Cards</p>
-    {/each}
-</div>
+
 
 <style>
     p {
