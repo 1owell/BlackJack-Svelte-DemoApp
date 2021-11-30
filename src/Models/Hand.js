@@ -1,12 +1,21 @@
 export class Hand {
+
     constructor(cards = []) {
         this.cards = cards;
     }
+
 
     // Add a new card to the hand
     addCard(card) {
         // TODO
     }
+
+
+    // Get the hand's current value
+    get handValue() {
+        // TODO
+    }
+
 
     // Checks if the hand is a Blackjack
     get isBlackjack() {
@@ -18,10 +27,5 @@ export class Hand {
         }
 
         return hasAce && hasTen && this.cards.length == 2;
-    }
-
-    // Get the hand's current value
-    get handValue() {
-        // TODO
     }
 }
