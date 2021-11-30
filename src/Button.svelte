@@ -1,10 +1,10 @@
 <script>
 	export let disabled = false;
     export let label;
-	export let action = () => { alert("Working") };	
+	export let action;	
 </script>
 
-<button on:click={ action() } disabled={ disabled } class:disabled >
+<button on:click={ action } disabled={ disabled } class:disabled >
     { label }
 </button>
 

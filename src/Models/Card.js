@@ -7,14 +7,14 @@ export class Card {
         this.faceDown = faceDown
     }
 
-    get possibleValues() {
+    get baseNumericalValue() {
         if (parseInt(this.value)) {
-            return [parseInt(this.value)];
+            return parseInt(this.value);
         } else if (this.isAce) {
-            return [1, 11];
+            return 1;
         } else {
             // face card
-            return [10];
+            return 10;
         }
     }
 
@@ -23,7 +23,7 @@ export class Card {
     }
 
     get isTen() {
-        return this.possibleValues[0] === 10;
+        return this.baseNumericalValue === 10;
     }
 
     flip() {

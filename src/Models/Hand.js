@@ -9,6 +9,7 @@ export class Hand {
         return this;
     }
 
+    // Checks if the hand is a Blackjack
     get isBlackjack() {
         let hasAce = false;
         let hasTen = false;
@@ -17,7 +18,7 @@ export class Hand {
             if (card.isTen) hasTen = true;
         }
 
-        return hasAce && hasTen;
+        return hasAce && hasTen && this.cards.length == 2;
     }
 
     // Get the hand's current value
@@ -27,7 +28,7 @@ export class Hand {
         let aceCount  = 0;
 
         for (const card of this.cards) {
-            card.isAce ? aceCount++ : handValue += card.possibleValues[0];
+            card.isAce ? aceCount++ : handValue += card.baseNumericalValue;
         }
             
         while(aceCount > 0) {
