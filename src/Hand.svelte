@@ -29,8 +29,8 @@
     {#each hand.cards as card (card) }
         <div animate:flip="{{duration: 600, easing: circOut }}" 
              in:fly={{duration: 600, y: -1000, x: 1000 }} 
-             out:send="{{key: card}}" 
-             class="card" >
+             out:send="{{key: card}}"
+             class="card">
             <Card { card } />
         </div>
     {:else}
