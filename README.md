@@ -1,3 +1,5 @@
+This project was a demo created as part of a course at RIT.
+
 To play: 
 1. Clone repo
 2. Run 'npm install' within the directory
